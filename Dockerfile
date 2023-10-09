@@ -1,5 +1,5 @@
 FROM maven:3.8.7 as build
-COPY src .
+COPY . .
 RUN mvn clean package
 
 
