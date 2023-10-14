@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @Validated
 @RequiredArgsConstructor
-@RequestMapping("/items")
+@RequestMapping("/")
 public class ItemController {
 
     private final ItemServiceImpl itemService;
@@ -55,13 +55,13 @@ public class ItemController {
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
         model.addAttribute("item", new Item());
-        return "items";
+        return "index";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String addNewItem(Model model, @ModelAttribute Item itemDe) {
         Item item = itemService.addItem(itemDe);
-        return "redirect:/items/";
+        return "redirect:/";
     }
 
 }
