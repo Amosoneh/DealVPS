@@ -4,7 +4,6 @@ import com.amoscode.dealvpsassignment.datas.dtos.AddItemRequest;
 import com.amoscode.dealvpsassignment.datas.models.Item;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class ItemServiceImpl implements ItemService{
         Item item = Item.builder()
                 .description(request.getDescription())
                 .name(request.getName())
-                .dateAdded(LocalDateTime.now())
                 .build();
         // CHECK IF THERE IS DUPLICATE WITH SAME NAME
         var noDuplicate = items.stream().noneMatch(item1 -> item1.getName().equals(item.getName()));
@@ -30,6 +28,18 @@ public class ItemServiceImpl implements ItemService{
         }
         return null;
     }
+    @Override
+    public Item addItem(Item item) {
+        // CHECK IF THERE IS DUPLICATE WITH SAME NAME
+        var noDuplicate = items.stream().noneMatch(item1 -> item1.getName().equals(item.getName()));
+        if(noDuplicate){
+            item.setId(count++);
+            items.add(item);
+            return item;
+        }
+        return null;
+    }
+
     // THIS METHOD RETURNS A SINGLE ITEM FROM THE LIST OF ITEMS
     @Override
     public Item getItem(int itemId) {

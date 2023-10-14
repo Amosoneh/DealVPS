@@ -1,14 +1,8 @@
 package com.amoscode.dealvpsassignment;
 
-import com.amoscode.dealvpsassignment.datas.dtos.AddItemRequest;
-import com.amoscode.dealvpsassignment.datas.models.Item;
-import com.amoscode.dealvpsassignment.services.ItemServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Scanner;
 
 @SpringBootApplication
 @RequiredArgsConstructor

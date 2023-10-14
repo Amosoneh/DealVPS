@@ -1,20 +1,23 @@
 package com.amoscode.dealvpsassignment.controllers;
 
 import com.amoscode.dealvpsassignment.datas.dtos.AddItemRequest;
+import com.amoscode.dealvpsassignment.datas.models.Item;
 import com.amoscode.dealvpsassignment.services.ItemServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @Validated
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/items")
 public class ItemController {
 
     private final ItemServiceImpl itemService;
@@ -46,4 +49,19 @@ public class ItemController {
     public ResponseEntity<?> getAllItem(){
         return ResponseEntity.ok(itemService.getAllItems());
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(Model model){
+        List<Item> items = itemService.getAllItems();
+        model.addAttribute("items", items);
+        model.addAttribute("item", new Item());
+        return "items";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public String addNewItem(Model model, @ModelAttribute Item itemDe) {
+        Item item = itemService.addItem(itemDe);
+        return "redirect:/items/";
+    }
+
 }
